@@ -21,6 +21,8 @@
         <mybatis.version>2.1.0</mybatis.version>
         <mysql.version>8.0.16</mysql.version>
         <druid.version>1.1.10</druid.version>
+        <log4j.version>1.7.24</log4j.version>
+        <junit.version>4.12</junit.version>
         <jwt.version>3.8.1</jwt.version>
 
     </properties>
@@ -69,6 +71,18 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>${druid.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
 
         <!-- jwt验证token -->
