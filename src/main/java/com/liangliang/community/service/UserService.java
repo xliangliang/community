@@ -6,4 +6,5 @@ public interface UserService {
     Long addUser(User user);
     User getUser(String fullname);
     int modifyLoginTime(User user);
+    User userLogin(String username, String password);
 }

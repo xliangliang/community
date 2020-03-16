@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService {
     public int modifyLoginTime(User user) {
         return userMapper.updateLastLoginTime(user);
     }
+
+    @Override
+    public User userLogin(String username, String password) {
+        return null;
+    }
 }
