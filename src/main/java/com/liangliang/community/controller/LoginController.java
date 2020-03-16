@@ -22,6 +22,8 @@ public class LoginController {
         User user = userService.userLogin(username, password);
         if (user == null) {
             model.addAttribute("error","用户名或密码错误");
+        } else {
+            return "";
         }
         return "index";
     }
