@@ -92,7 +92,22 @@
             <version>${jwt.version}</version>
         </dependency>
 
-
+        <!-- 导入导出excel -->
+        <dependency>
+            <artifactId>poi</artifactId>
+            <groupId>org.apache.poi</groupId>
+            <version>3.12</version>
+        </dependency>
+        <dependency>
+            <artifactId>poi-ooxml</artifactId>
+            <groupId>org.apache.poi</groupId>
+            <version>3.12</version>
+        </dependency>
+        <dependency>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <groupId>org.apache.poi</groupId>
+            <version>3.12</version>
+        </dependency>
 
     </dependencies>
 
