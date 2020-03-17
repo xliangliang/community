@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletRequest;
+
 @Controller
 public class LoginController {
 
@@ -18,12 +20,11 @@ public class LoginController {
     @RequestMapping(name = "/api/login", method = RequestMethod.POST)
     public String login(@RequestParam(name = "username") String username,
                         @RequestParam(name = "password") String password,
+                        ServletRequest request,
                         Model model){
         User user = userService.userLogin(username, password);
         if (user == null) {
             model.addAttribute("error","用户名或密码错误");
-        } else {
-            return "";
         }
         return "index";
     }

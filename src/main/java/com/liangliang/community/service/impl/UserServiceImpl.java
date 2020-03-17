@@ -29,6 +29,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User userLogin(String username, String password) {
-        return null;
+        return userMapper.userLogin(username, password);
     }
 }
