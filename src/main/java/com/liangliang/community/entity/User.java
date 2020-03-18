@@ -1,27 +1,31 @@
 package com.liangliang.community.entity;
 
-public class User {
-    private Integer id;
-    private String accountId;
-    private String name;
-    private String token;
-    private long gmtCreate;
-    private long gmtModified;
+import java.io.Serializable;
 
-    public Integer getId() {
+public class User implements Serializable {
+    private Long id;
+    private String name;
+    private String phone;
+    private String mail;
+    private Long createTime;
+
+    public User() {
+    }
+
+    public User(Long id, String name, String phone, String mail, Long createTime) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.mail = mail;
+        this.createTime = createTime;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
     }
 
     public String getName() {
@@ -32,27 +36,38 @@ public class User {
         this.name = name;
     }
 
-    public String getToken() {
-        return token;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public long getGmtCreate() {
-        return gmtCreate;
+    public String getMail() {
+        return mail;
     }
 
-    public void setGmtCreate(long gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public long getGmtModified() {
-        return gmtModified;
+    public Long getCreateTime() {
+        return createTime;
     }
 
-    public void setGmtModified(long gmtModified) {
-        this.gmtModified = gmtModified;
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", mail='" + mail + '\'' +
+                ", createTime=" + createTime +
+                '}';
     }
 }

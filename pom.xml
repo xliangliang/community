@@ -109,6 +109,12 @@
             <version>3.12</version>
         </dependency>
 
+        <!-- Reids -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
