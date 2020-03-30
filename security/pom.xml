@@ -6,7 +6,7 @@
 
     <groupId>com.liangliang.community</groupId>
     <artifactId>security</artifactId>
-    <version>${parent.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
