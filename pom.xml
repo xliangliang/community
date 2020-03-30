@@ -11,6 +11,9 @@
     <modules>
         <module>common</module>
         <module>admin</module>
+        <module>search</module>
+        <module>security</module>
+        <module>mbg</module>
     </modules>
 
     <parent>
