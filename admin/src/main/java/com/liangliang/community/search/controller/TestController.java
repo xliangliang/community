@@ -1,4 +1,4 @@
-package com.liangliang.community.controller;
+package com.liangliang.community.search.controller;
 
 import com.liangliang.community.utils.GetIpAddressUtils;
 import org.springframework.web.bind.annotation.GetMapping;

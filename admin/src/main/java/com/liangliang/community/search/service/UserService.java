@@ -1,4 +1,4 @@
-package com.liangliang.community.service;
+package com.liangliang.community.search.service;
 
 import com.liangliang.community.dto.RegisterParam;
 import com.liangliang.community.entity.User;

@@ -1,11 +1,11 @@
-package com.liangliang.community.controller;
+package com.liangliang.community.search.controller;
 
 import com.liangliang.community.api.CommonResult;
 import com.liangliang.community.dto.LoginParam;
 import com.liangliang.community.dto.RegisterParam;
 import com.liangliang.community.entity.User;
 import com.liangliang.community.model.UserAdmin;
-import com.liangliang.community.service.UserService;
+import com.liangliang.community.search.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

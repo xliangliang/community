@@ -1,10 +1,10 @@
-package com.liangliang.community.service.impl;
+package com.liangliang.community.search.service.impl;
 
-import com.liangliang.community.dao.mapper.UserMapper;
+import com.liangliang.community.search.dao.mapper.UserMapper;
 import com.liangliang.community.dto.RegisterParam;
 import com.liangliang.community.entity.User;
 import com.liangliang.community.model.UserAdmin;
-import com.liangliang.community.service.UserService;
+import com.liangliang.community.search.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

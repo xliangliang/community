@@ -1,4 +1,4 @@
-package com.liangliang.community.dao.mapper;
+package com.liangliang.community.search.dao.mapper;
 
 import com.liangliang.community.entity.User;
 import org.apache.ibatis.annotations.Param;

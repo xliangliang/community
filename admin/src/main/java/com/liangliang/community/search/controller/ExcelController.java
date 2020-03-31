@@ -1,4 +1,4 @@
-package com.liangliang.community.controller;
+package com.liangliang.community.search.controller;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;

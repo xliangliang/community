@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.liangliang.community.controller")
+@ComponentScan("com.liangliang.community.search.controller")
 @ComponentScan("com.liangliang.community.provider")
-@ComponentScan("com.liangliang.community.service.impl")
+@ComponentScan("com.liangliang.community.search.service.impl")
 @MapperScan("com.liangliang.community.dao.mapper")
 public class CommunityApplication {
 
