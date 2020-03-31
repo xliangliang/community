@@ -1,6 +1,5 @@
-package com.liangliang.community.search.controller;
+package com.liangliang.community.search.service.impl;
 
-import com.liangliang.community.search.TestCommunityApplication;
 import com.liangliang.community.search.service.impl.EsUserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = TestCommunityApplication.class)
-public class EsUserControllerTest {
+@SpringBootTest
+public class EsUserServiceImplTest {
 
     @Autowired
     private EsUserServiceImpl esUserService;

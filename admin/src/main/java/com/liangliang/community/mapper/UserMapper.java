@@ -1,10 +1,11 @@
-package com.liangliang.community.search.dao.mapper;
+package com.liangliang.community.mapper;
 
 import com.liangliang.community.entity.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Mapper
 public interface UserMapper {
 
     /**

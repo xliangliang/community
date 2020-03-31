@@ -18,7 +18,6 @@ public class EsUserServiceImpl implements EsUserService {
 
     @Override
     public int userTotalNum() {
-//        return esUserDao.selectAllUser();
-        return 1;
+        return esUserDao.selectAllUser();
     }
 }

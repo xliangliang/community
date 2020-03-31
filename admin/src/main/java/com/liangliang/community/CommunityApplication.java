@@ -8,10 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.liangliang.community.search.controller")
-@ComponentScan("com.liangliang.community.provider")
-@ComponentScan("com.liangliang.community.search.service.impl")
-@MapperScan("com.liangliang.community.dao.mapper")
+@ComponentScan("com.liangliang.community.controller")
+@ComponentScan("com.liangliang.community.service")
+@MapperScan("com.liangliang.community.mapper")
 public class CommunityApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(CommunityApplication.class);

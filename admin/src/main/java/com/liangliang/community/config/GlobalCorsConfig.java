@@ -1,4 +1,4 @@
-package com.liangliang.community.search.config;
+package com.liangliang.community.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -28,15 +28,15 @@
             <artifactId>security</artifactId>
         </dependency>
         <!--mongodb依赖配置-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
+        </dependency>-->
         <!--消息队列相关依赖-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
+        </dependency>-->
         <!-- 导入导出excel -->
         <dependency>
             <artifactId>poi</artifactId>
