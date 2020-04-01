@@ -1,8 +1,8 @@
 package com.liangliang.community.provider;
 
-import com.alibaba.fastjson.JSON;
+/*import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.liangliang.community.dto.AccessTokenDTO;
+import com.liangliang.community.dto.AccessTokenDTO;*/
 import com.liangliang.community.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import java.io.IOException;
 @Component
 public class GithubProvider {
 
-    public String getAccessToken(AccessTokenDTO accessTokenDTO){
+    /*public String getAccessToken(AccessTokenDTO accessTokenDTO){
         //post请求
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
@@ -28,7 +28,7 @@ public class GithubProvider {
         } catch (IOException e) {
         }
         return null;
-    }
+    }*/
 
     public GithubUser getUserInfo(String access_token){
         //get请求
@@ -40,7 +40,7 @@ public class GithubProvider {
         try {
             Response response = client.newCall(request).execute();
             String userinfo = response.body().string();
-            return JSON.parseObject(userinfo,GithubUser.class);
+//            return JSON.parseObject(userinfo,GithubUser.class);
         } catch (IOException e) {
 
         }

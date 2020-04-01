@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-@Controller
+//@Controller
 public class ExcelController {
 
     private static final String EXCEL_PATH = "E:\\Liangliang\\Temp";

@@ -6,10 +6,13 @@ import com.liangliang.community.dto.RegisterParam;
 import com.liangliang.community.entity.User;
 import com.liangliang.community.model.UserAdmin;
 import com.liangliang.community.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = "AdminController",description = "用户管理模块")
 @Controller
 @RequestMapping("/api")
 public class AdminController {
@@ -17,6 +20,7 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation("登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<User> login(@RequestBody LoginParam loginParam) {
@@ -27,6 +31,7 @@ public class AdminController {
         return CommonResult.success(user);
     }
 
+    @ApiOperation("注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<UserAdmin> register(@RequestBody RegisterParam registerParam) {

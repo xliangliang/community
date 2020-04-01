@@ -21,4 +21,8 @@
     <update id="updateLastLoginTime" parameterType="com.liangliang.community.entity.User">
         update c_user set last_login_time = #{user.lastLoginTime} where fullname = #{user.fullname};
     </update>
+
+    <select id="userLogin" resultType="com.liangliang.community.entity.User">
+        select * from c_user where name = #{username};
+    </select>
 </mapper>
