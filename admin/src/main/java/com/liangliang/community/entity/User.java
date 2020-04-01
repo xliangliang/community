@@ -1,23 +1,28 @@
 package com.liangliang.community.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Long id;
     private String name;
     private String phone;
     private String mail;
-    private Long createTime;
+    private Date createTime;
+    private String token;
 
     public User() {
     }
 
-    public User(Long id, String name, String phone, String mail, Long createTime) {
+    public User(Long id, String name, String phone, String mail, Date createTime, String token) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.mail = mail;
         this.createTime = createTime;
+        this.token = token;
     }
 
     public Long getId() {
@@ -52,22 +57,19 @@ public class User implements Serializable {
         this.mail = mail;
     }
 
-    public Long getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Long createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", mail='" + mail + '\'' +
-                ", createTime=" + createTime +
-                '}';
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
