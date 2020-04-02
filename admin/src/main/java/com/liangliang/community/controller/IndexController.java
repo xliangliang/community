@@ -10,7 +10,6 @@ public class IndexController {
     @GetMapping("/hello")
     @ResponseBody
     public String index() {
-        System.out.println("Hello");
         return "Hello,world";
     }
 }
