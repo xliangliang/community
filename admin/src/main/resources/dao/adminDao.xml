@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangliang.community.dao.AdminDao">
+    <resultMap id="AdminResultMap" type="com.liangliang.community.model.CAdmin" extends="com.liangliang.community.mapper.CAdminMapper.BaseResultMap">
+    </resultMap>
+
+    <insert id="insert" parameterType="com.liangliang.community.dto.RegisterParam">
+        insert into c_admin(username, password, create_time) values(#{registerParam.username}, #{registerParam.password}, #{registerParam.createTime});
+    </insert>
+
+    <select id="login" resultType="com.liangliang.community.model.CAdmin">
+        select id, username, icon, email, nick_name, note, create_time, login_time
+        from c_admin where username = #{loginParam.username} and password = #{loginParam.password} and status = 1;
+    </select>
+
+    <select id="select" resultType="com.liangliang.community.model.CAdmin">
+        select id, username, icon, email, nick_name, note, create_time, login_time
+        from c_admin where username = #{username};
+    </select>
+
+    <select id="selectById" resultType="com.liangliang.community.model.CAdmin">
+        select id, username, icon, email, nick_name, note, create_time, login_time
+        from c_admin where id = #{id};
+    </select>
+
+    <update id="updateLoginTime">
+        update c_admin set login_time = #{date} where id = #{id};
+    </update>
+
+</mapper>
