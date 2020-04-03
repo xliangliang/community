@@ -11,8 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
 
 @Api(tags = "AdminController", description = "用户管理模块")
@@ -28,11 +30,16 @@ public class AdminController {
     @ApiOperation("登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CAdmin> login(@RequestBody LoginParam loginParam) {
+    public CommonResult<CAdmin> login(@Valid @RequestBody LoginParam loginParam, BindingResult bindingResult) {
+        //处理没有通过的参数校验
+        if (bindingResult.hasErrors()) {
+            return CommonResult.failed(bindingResult.getAllErrors().get(0).getDefaultMessage());
+        }
         CAdmin user = adminService.login(loginParam);
         if (user == null) {
             return CommonResult.failed("用户名或密码错误");
         }
+        System.out.println("createTime:"+user.getCreateTime());
         return CommonResult.success(user);
     }
 
