@@ -1,5 +1,6 @@
 package com.liangliang.community.security.component;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -15,7 +16,9 @@ import java.io.IOException;
  */
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
+    @Value("${jwt.tokenHeader}")
     private String tokenHeader;
+    @Value("${jwt.tokenHead}")
     private String tokenHead;
 
     @Override
@@ -24,5 +27,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                                     FilterChain chain) throws ServletException, IOException {
 
         String authHeader = request.getHeader(tokenHeader);
+        if (authHeader != null && authHeader.startsWith(this.tokenHead)){
+            String authToken = authHeader.substring(this.tokenHead.length());
+
+        }
     }
 }

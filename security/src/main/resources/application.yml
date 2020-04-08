@@ -1,3 +1,8 @@
 secure:
-  ignored:
-    login
+  ignored: login
+
+jwt:
+  secrect: 11111111111
+  expiration: 10L
+  tokenHead:  aaaaaa
+
