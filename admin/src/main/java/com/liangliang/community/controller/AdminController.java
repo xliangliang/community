@@ -19,7 +19,7 @@ import java.util.Date;
 
 @Api(tags = "AdminController", description = "用户管理模块")
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/admin")
 public class AdminController {
 
     private final Logger logger = LoggerFactory.getLogger(AdminController.class);

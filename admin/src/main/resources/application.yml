@@ -12,8 +12,26 @@ server:
 mybatis:
   mapper-locations:
     - classpath:dao/*.xml
-    - classpath:/mapper/*.xml
+    - classpath*:/mapper/*.xml
 
+jwt:
+  tokenHeader: Authorization
+  secrect: mall-portal-secret
+  expiration: 604800 # 60*60*24*7
+  tokenHead: Bearer
 
-
+secure:
+  ignored:
+    - /swagger-ui.html
+    - /swagger-resources/**
+    - /swagger/**
+    - /**/v2/api-docs
+    - /**/*.js
+    - /**/*.css
+    - /**/*.png
+    - /**/*.ico
+    - /webjars/springfox-swagger-ui/**
+    - /druid/**
+    - /actuator/**
+    - /hello
 

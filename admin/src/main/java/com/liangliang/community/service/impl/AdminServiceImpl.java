@@ -1,5 +1,7 @@
 package com.liangliang.community.service.impl;
 
+import com.liangliang.community.annotation.TestAnnotation;
+import com.liangliang.community.bo.AdminUserDetails;
 import com.liangliang.community.dao.AdminDao;
 import com.liangliang.community.dto.LoginParam;
 import com.liangliang.community.dto.RegisterParam;
@@ -8,6 +10,7 @@ import com.liangliang.community.service.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -41,5 +44,17 @@ public class AdminServiceImpl implements AdminService {
             adminDao.updateLoginTime(user.getId(), new Date());
         }
         return user;
+    }
+
+    @TestAnnotation
+    @Override
+    public void testAspect() {
+        System.out.println("TestAspect");
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        CAdmin cAdmin = adminDao.select(username);
+        return new AdminUserDetails(cAdmin, null);
     }
 }

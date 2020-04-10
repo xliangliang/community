@@ -1,4 +1,4 @@
-package com.liangliang.community.config;
+package com.liangliang.community.security.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

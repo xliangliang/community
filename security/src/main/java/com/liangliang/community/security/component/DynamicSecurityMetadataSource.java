@@ -33,6 +33,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
+        System.out.println("33333333333333333");
         if (configAttributeMap == null) {
             this.loadSource();
         }

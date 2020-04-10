@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * @author Liangliang
  * @date 2020/4/7
- * @desc
+ * @desc 配置不需要保护的资源路径
  */
 @Getter
 @Setter
-//@ConfigurationProperties(prefix = "secure.ignored")
+@ConfigurationProperties(prefix = "secure.ignored")
 public class IgnoreUrlsConfig {
 
     private List<String> urls = new ArrayList<>();
