@@ -2,6 +2,8 @@ package com.liangliang.community.security.config;
 
 import com.liangliang.community.security.component.*;
 import com.liangliang.community.security.utils.JwtTokenUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @desc 对SpringSecurity的配置的扩展，支持自定义白名单资源路径和查询用户逻辑
  */
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired(required = false)
     private DynamicSecurityService dynamicSecurityService;
@@ -32,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http.
                 authorizeRequests();
         //不需要保护的资源路径允许访问
+        System.out.println("SecurityConfig -> configure");
         for (String url : ignoreUrlsConfig().getUrls()) {
             registry.mvcMatchers(url).permitAll();
         }
@@ -62,11 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
     }
 
-    @Override
+    /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());
-    }
+    }*/
 
     @Bean
     @Override

@@ -1,5 +1,6 @@
 package com.liangliang.community.controller;
 
+import com.liangliang.community.config.TestLMLBean;
 import com.liangliang.community.service.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ public class IndexController {
 
     @Autowired
     private AdminService adminService;
+    //@Autowired
+    //private TestLMLBean testBean;
 
     @GetMapping("/hello")
     @ResponseBody

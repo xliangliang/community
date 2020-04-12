@@ -1,6 +1,8 @@
 package com.liangliang.community.security.component;
 
 import cn.hutool.core.util.URLUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
@@ -16,6 +18,7 @@ import java.util.*;
  * @desc
  */
 public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
+    private final Logger logger = LoggerFactory.getLogger(DynamicSecurityMetadataSource.class);
 
     private static Map<String, ConfigAttribute> configAttributeMap = null;
     @Autowired
@@ -33,7 +36,11 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
-        System.out.println("33333333333333333");
+        System.out.println("DynamicSecurityMetadataSource -> getAttributes");
+        configAttributeMap.forEach((key, value) -> {
+            System.out.println("configAttributeMap key:" + key);
+            System.out.println("configAttributeMap value:" + value);
+        });
         if (configAttributeMap == null) {
             this.loadSource();
         }

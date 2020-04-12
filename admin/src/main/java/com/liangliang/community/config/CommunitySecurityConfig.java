@@ -5,6 +5,8 @@ import com.liangliang.community.security.component.DynamicSecurityService;
 import com.liangliang.community.security.config.SecurityConfig;
 import com.liangliang.community.service.AdminService;
 import com.liangliang.community.service.ResourceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class CommunitySecurityConfig extends SecurityConfig {
+    private final Logger logger = LoggerFactory.getLogger(CommunitySecurityConfig.class);
 
     @Autowired
     private ResourceService resourceService;
@@ -34,12 +37,14 @@ public class CommunitySecurityConfig extends SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
+        System.out.println("CommunitySecurityConfig -> userDetailsService");
         //获取登录用户信息
         return username -> adminService.loadUserByUsername(username);
     }
 
     @Bean
     public DynamicSecurityService dynamicSecurityService() {
+        System.out.println("CommunitySecurityConfig -> dynamicSecurityService");
         return new DynamicSecurityService() {
 
             @Override
@@ -49,6 +54,10 @@ public class CommunitySecurityConfig extends SecurityConfig {
                 for (CResource resource : resourceList) {
                     map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
                 }
+                map.forEach((key, value) -> {
+                    System.out.println("map key:" + key);
+                    System.out.println("map value:" + value);
+                });
                 return map;
             }
         };

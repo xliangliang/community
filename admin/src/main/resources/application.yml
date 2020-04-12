@@ -1,10 +1,14 @@
 spring:
   profiles:
-    active: test #默认为开发环境
+    active: dev #默认为开发环境
   servlet:
     multipart:
       enabled: true #开启文件上传
       max-file-size: 10MB #限制文件上传大小为10M
+  security:
+    user:
+      name: admin
+      password: admin
 
 server:
   port: 8001
@@ -22,16 +26,21 @@ jwt:
 
 secure:
   ignored:
-    - /swagger-ui.html
-    - /swagger-resources/**
-    - /swagger/**
-    - /**/v2/api-docs
-    - /**/*.js
-    - /**/*.css
-    - /**/*.png
-    - /**/*.ico
-    - /webjars/springfox-swagger-ui/**
-    - /druid/**
-    - /actuator/**
-    - /hello
+    urls:
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /druid/**
+      - /actuator/**
+      - /hello
 
+logging:
+  level:
+    root: info #日志配置DEBUG,INFO,WARN,ERROR
+    com.liangliang.community: debug

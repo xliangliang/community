@@ -1,6 +1,8 @@
 package com.liangliang.community.security.component;
 
 import cn.hutool.core.collection.CollUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -17,11 +19,13 @@ import java.util.Iterator;
  * @desc
  */
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
+    private final Logger logger = LoggerFactory.getLogger(DynamicAccessDecisionManager.class);
+
     @Override
     public void decide(Authentication authentication, Object o,
                        Collection<ConfigAttribute> collection) throws AccessDeniedException, InsufficientAuthenticationException {
         //当接口未配置资源时直接放行
-        System.out.println("111111111111111");
+        System.out.println("DynamicAccessDecisionManager -> decide");
         if (CollUtil.isEmpty(collection)) {
             return;
         }

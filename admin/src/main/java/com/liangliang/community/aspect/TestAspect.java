@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestAspect {
 
-    @Pointcut("execution(public * com.liangliang.community.service.*Service.*(..))")
+    //@Pointcut("execution(public * com.liangliang.community.service.*Service.*(..))")
     public void testAspect(){
     }
 
-    @Around("testAspect()")
+    //@Around("testAspect()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable{
         System.out.println("11111111:"+joinPoint.getSignature());
         Object result = null;

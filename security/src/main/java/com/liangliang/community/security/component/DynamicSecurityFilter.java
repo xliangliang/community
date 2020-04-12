@@ -1,6 +1,8 @@
 package com.liangliang.community.security.component;
 
 import com.liangliang.community.security.config.IgnoreUrlsConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.SecurityMetadataSource;
@@ -19,6 +21,7 @@ import java.io.IOException;
  * @desc
  */
 public class DynamicSecurityFilter extends AbstractSecurityInterceptor implements Filter {
+    private final Logger logger = LoggerFactory.getLogger(DynamicSecurityFilter.class);
 
     @Autowired
     private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
@@ -38,9 +41,8 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        System.out.println("RequestMethod:"+request.getMethod());
-        System.out.println("RequestURI:"+request.getRequestURI());
-        System.out.println("222222222222222");
+        logger.info("RequestMethod:{}", request.getMethod());
+        logger.info("RequestURI:{}", request.getRequestURI());
         FilterInvocation fi = new FilterInvocation(servletRequest, servletResponse, filterChain);
         //OPTIONS请求直接放行
         if (request.getMethod().equals(HttpMethod.OPTIONS.toString())) {
@@ -49,6 +51,7 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
         }
         //白名单请求直接放行
         AntPathMatcher pathMatcher = new AntPathMatcher();
+        logger.info("ignoreUrlsConfig:{}", ignoreUrlsConfig.getUrls());
         for (String path : ignoreUrlsConfig.getUrls()) {
             if (pathMatcher.match(path, request.getRequestURI())) {
                 fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
