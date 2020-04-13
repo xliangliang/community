@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev #默认为开发环境
+    active: test #默认为开发环境
   servlet:
     multipart:
       enabled: true #开启文件上传
@@ -39,6 +39,12 @@ secure:
       - /druid/**
       - /actuator/**
       - /hello
+
+redis:
+  key:
+    admin: community
+  expire:
+    common: 86400
 
 logging:
   level:

@@ -11,3 +11,5 @@ CREATE TABLE `c_admin` (
   `status` int DEFAULT '1' COMMENT '帐号启用状态：0->禁用；1->启用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+INSERT INTO `c_admin` VALUES ('1', 'admin', '123456', '', 'admin@163.com', '系统管理员', '系统管理员', '2020-04-07 13:32:47', '2020-04-07 13:32:47', '1');

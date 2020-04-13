@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
         //允许跨域请求的OPTIONS请求
         registry.mvcMatchers(HttpMethod.OPTIONS).permitAll();
-        //
+        //任何请求需要身份认证
         registry.and()
                 .authorizeRequests()
                 .anyRequest()
@@ -66,11 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
     }
 
-    /*@Override
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());
-    }*/
+    }
 
     @Bean
     @Override

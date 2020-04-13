@@ -50,7 +50,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         String path = URLUtil.getPath(url);
         AntPathMatcher pathMatcher = new AntPathMatcher();
         Iterator<String> it = configAttributeMap.keySet().iterator();
-        //
+        //获取访问该路径所需的资源
         while (it.hasNext()) {
             String pattern = it.next();
             if (pathMatcher.match(pattern, path)) {

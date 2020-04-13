@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangliang.community.dao.AdminRoleRelationDao">
+    <select id="getResourceList" resultType="com.liangliang.community.model.CResource">
+        select rs.id as res_is, rs.create_time, rs.name, rs.url, rs.description, rs.category_id
+        from c_admin_role_relation arr
+        left join c_role r on arr.role_id = r.id
+        left join c_role_resource_relation rrr on r.id = rrr.role_id
+        left join c_resource rs on rrr.resource_id = rs.id
+        where r.status = 1
+        and arr.admin_id = #{adminId};
+    </select>
+</mapper>
