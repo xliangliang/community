@@ -3,10 +3,12 @@ package com.liangliang.community.bo;
 import com.liangliang.community.model.CAdmin;
 import com.liangliang.community.model.CResource;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Liangliang
@@ -24,36 +26,39 @@ public class AdminUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        // 返回当前用户的角色
+        return resourceList.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getId() + ":" + role.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return cAdmin.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return cAdmin.getUsername();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return cAdmin.getStatus().equals(1);
     }
 }

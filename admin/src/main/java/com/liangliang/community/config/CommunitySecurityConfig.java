@@ -37,14 +37,12 @@ public class CommunitySecurityConfig extends SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        System.out.println("CommunitySecurityConfig -> userDetailsService");
         //获取登录用户信息
         return username -> adminService.loadUserByUsername(username);
     }
 
     @Bean
     public DynamicSecurityService dynamicSecurityService() {
-        System.out.println("CommunitySecurityConfig -> dynamicSecurityService");
         return new DynamicSecurityService() {
 
             @Override
@@ -54,10 +52,6 @@ public class CommunitySecurityConfig extends SecurityConfig {
                 for (CResource resource : resourceList) {
                     map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
                 }
-                map.forEach((key, value) -> {
-                    System.out.println("map key:" + key);
-                    System.out.println("map value:" + value);
-                });
                 return map;
             }
         };

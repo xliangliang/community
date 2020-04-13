@@ -35,7 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http.
                 authorizeRequests();
         //不需要保护的资源路径允许访问
-        System.out.println("SecurityConfig -> configure");
         for (String url : ignoreUrlsConfig().getUrls()) {
             registry.mvcMatchers(url).permitAll();
         }

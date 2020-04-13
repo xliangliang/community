@@ -25,7 +25,6 @@ public class DynamicAccessDecisionManager implements AccessDecisionManager {
     public void decide(Authentication authentication, Object o,
                        Collection<ConfigAttribute> collection) throws AccessDeniedException, InsufficientAuthenticationException {
         //当接口未配置资源时直接放行
-        System.out.println("DynamicAccessDecisionManager -> decide");
         if (CollUtil.isEmpty(collection)) {
             return;
         }

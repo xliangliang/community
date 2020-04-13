@@ -64,6 +64,8 @@ public class AdminServiceImpl implements AdminService {
         String token = null;
         try {
             UserDetails userDetails = loadUserByUsername(username);
+            logger.info("password: {}",password);
+            logger.info("user Details password: {}",userDetails.getPassword());
             if (!passwordEncoder.matches(password, userDetails.getPassword())) {
                 throw new BadCredentialsException("密码不正确");
             }

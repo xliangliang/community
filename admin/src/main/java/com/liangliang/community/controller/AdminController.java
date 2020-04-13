@@ -41,7 +41,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return CommonResult.failed(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
-        String token = adminService.login(loginParam.getUsername(), loginParam.getUsername());
+        String token = adminService.login(loginParam.getUsername(), loginParam.getPassword());
         if (token == null) {
             return CommonResult.failed("用户名或密码错误");
         }

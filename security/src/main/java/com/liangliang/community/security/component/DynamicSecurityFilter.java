@@ -41,8 +41,6 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        logger.info("RequestMethod:{}", request.getMethod());
-        logger.info("RequestURI:{}", request.getRequestURI());
         FilterInvocation fi = new FilterInvocation(servletRequest, servletResponse, filterChain);
         //OPTIONS请求直接放行
         if (request.getMethod().equals(HttpMethod.OPTIONS.toString())) {
@@ -51,7 +49,6 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
         }
         //白名单请求直接放行
         AntPathMatcher pathMatcher = new AntPathMatcher();
-        logger.info("ignoreUrlsConfig:{}", ignoreUrlsConfig.getUrls());
         for (String path : ignoreUrlsConfig.getUrls()) {
             if (pathMatcher.match(path, request.getRequestURI())) {
                 fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
