@@ -2,7 +2,9 @@ package com.liangliang.community.security.utils;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,8 +34,8 @@ public class JwtTokenUtil {
     private final Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
-    @Value("${jwt.secrect}")
-    private String secrect;
+    @Value("${jwt.secret}")
+    private String secret;
     @Value("${jwt.expiration}")
     private Long expiration;
     @Value("${jwt.tokenHead}")
@@ -54,10 +56,11 @@ public class JwtTokenUtil {
      * 根据负载生成token
      */
     private String generateToken(Map<String, Object> claims) {
+        logger.info("secrect:{}",secret);
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.HS512, secrect)
+                .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 
@@ -68,7 +71,7 @@ public class JwtTokenUtil {
         Claims claims = null;
         try {
             claims = Jwts.parser()
-                    .setSigningKey(secrect)
+                    .setSigningKey(secret)
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {

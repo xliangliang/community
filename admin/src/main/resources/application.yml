@@ -20,7 +20,7 @@ mybatis:
 
 jwt:
   tokenHeader: Authorization
-  secrect: mall-portal-secret
+  secret: community-secret
   expiration: 604800 # 60*60*24*7
   tokenHead: Bearer
 
