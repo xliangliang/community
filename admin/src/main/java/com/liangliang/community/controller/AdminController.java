@@ -1,8 +1,8 @@
 package com.liangliang.community.controller;
 
 import com.liangliang.community.api.CommonResult;
+import com.liangliang.community.dto.AdminParam;
 import com.liangliang.community.dto.LoginParam;
-import com.liangliang.community.dto.RegisterParam;
 import com.liangliang.community.model.CAdmin;
 import com.liangliang.community.service.AdminService;
 import io.swagger.annotations.Api;
@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.validation.Valid;
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,11 +38,7 @@ public class AdminController {
     @ApiOperation("登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult login(@Valid @RequestBody LoginParam loginParam, BindingResult bindingResult) {
-        //处理没有通过的参数校验
-        if (bindingResult.hasErrors()) {
-            return CommonResult.failed(bindingResult.getAllErrors().get(0).getDefaultMessage());
-        }
+    public CommonResult login(@RequestBody LoginParam loginParam, BindingResult result) {
         String token = adminService.login(loginParam.getUsername(), loginParam.getPassword());
         if (token == null) {
             return CommonResult.failed("用户名或密码错误");
@@ -54,16 +52,28 @@ public class AdminController {
     @ApiOperation("注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CAdmin> register(@RequestParam("username") String username, @RequestParam("password") String password) {
-        RegisterParam registerParam = new RegisterParam();
-        registerParam.setUsername(username);
-        registerParam.setPassword(password);
-        registerParam.setCreateTime(new Date());
-        int count = adminService.register(registerParam);
-        if (count == 0 || count == -1) {
+    public CommonResult<CAdmin> register(@RequestBody AdminParam adminParam, BindingResult result) {
+
+        CAdmin admin = adminService.register(adminParam);
+        if (admin == null) {
             return CommonResult.failed();
         }
-        return CommonResult.success(null);
+        return CommonResult.success(admin);
+    }
+
+    @ApiOperation(value = "刷新token")
+    @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult refreshToken(HttpServletRequest request) {
+        String token = request.getHeader(tokenHeader);
+        String refreshToken = adminService.refreshToken(token);
+        if (refreshToken == null) {
+            return CommonResult.failed("token已过期");
+        }
+        Map<String, Object> tokenMap = new HashMap<>();
+        tokenMap.put("token", token);
+        tokenMap.put("tokenHead", tokenHead);
+        return CommonResult.success(tokenMap);
     }
 
 }

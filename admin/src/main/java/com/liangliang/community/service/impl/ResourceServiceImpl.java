@@ -1,6 +1,5 @@
 package com.liangliang.community.service.impl;
 
-import com.liangliang.community.dao.ResourceDao;
 import com.liangliang.community.mapper.CResourceMapper;
 import com.liangliang.community.model.CResource;
 import com.liangliang.community.model.CResourceExample;
@@ -19,8 +18,6 @@ import java.util.List;
 public class ResourceServiceImpl implements ResourceService {
 
     @Autowired
-    private ResourceDao resourceDao;
-    @Autowired
     private CResourceMapper resourceMapper;
 
     @Override
@@ -30,7 +27,6 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public List<CResource> listAll() {
-        return resourceDao.listAll();
-        //return resourceMapper.selectByExample(new CResourceExample());
+        return resourceMapper.selectByExample(new CResourceExample());
     }
 }

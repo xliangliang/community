@@ -12,4 +12,4 @@ CREATE TABLE `c_admin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
-INSERT INTO `c_admin` VALUES ('1', 'admin', '123456', '', 'admin@163.com', '系统管理员', '系统管理员', '2020-04-07 13:32:47', '2020-04-07 13:32:47', '1');
+INSERT INTO `c_admin` VALUES ('1', 'admin', '$2a$10$EuuLEbV6bnQ6SAcc58HOCOlTFny1Lw7Y3ANr3znpjWs6bKM5jKbbC', '', 'admin@163.com', '系统管理员', '系统管理员', '2020-04-07 13:32:47', '2020-04-07 13:32:47', '1');

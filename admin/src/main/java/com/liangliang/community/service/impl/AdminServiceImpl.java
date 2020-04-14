@@ -1,18 +1,21 @@
 package com.liangliang.community.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
-import com.liangliang.community.annotation.TestAnnotation;
 import com.liangliang.community.bo.AdminUserDetails;
 import com.liangliang.community.dao.AdminDao;
 import com.liangliang.community.dao.AdminRoleRelationDao;
-import com.liangliang.community.dto.RegisterParam;
+import com.liangliang.community.dto.AdminParam;
+import com.liangliang.community.mapper.CAdminLoginLogMapper;
 import com.liangliang.community.mapper.CAdminMapper;
 import com.liangliang.community.model.CAdmin;
 import com.liangliang.community.model.CAdminExample;
+import com.liangliang.community.model.CAdminLoginLog;
 import com.liangliang.community.model.CResource;
 import com.liangliang.community.security.utils.JwtTokenUtil;
 import com.liangliang.community.service.AdminCacheService;
 import com.liangliang.community.service.AdminService;
+import com.liangliang.community.utils.GetIpAddressUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +27,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,9 +45,11 @@ public class AdminServiceImpl implements AdminService {
     private final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Autowired
+    private AdminDao adminDao;
+    @Autowired
     private CAdminMapper adminMapper;
     @Autowired
-    private AdminDao adminDao;
+    private CAdminLoginLogMapper loginLogMapper;
     @Autowired
     private AdminRoleRelationDao adminRoleRelationDao;
     @Autowired
@@ -51,12 +60,22 @@ public class AdminServiceImpl implements AdminService {
     private JwtTokenUtil jwtTokenUtil;
 
     @Override
-    public int register(RegisterParam registerParam) {
-        CAdmin user = adminDao.select(registerParam.getUsername());
-        if (user != null) {
-            return -1;
+    public CAdmin register(AdminParam adminParam) {
+        CAdmin admin = new CAdmin();
+        BeanUtil.copyProperties(adminParam, admin);
+        admin.setCreateTime(new Date());
+        admin.setStatus(1);
+        CAdminExample example = new CAdminExample();
+        example.createCriteria().andUsernameEqualTo(admin.getUsername());
+        List<CAdmin> admins = adminMapper.selectByExample(example);
+        if (admins.size() > 0) {
+            return null;
         }
-        return adminDao.insert(registerParam);
+        // 加密
+        String password = passwordEncoder.encode(admin.getPassword());
+        admin.setPassword(password);
+        adminMapper.insert(admin);
+        return admin;
     }
 
     @Override
@@ -64,24 +83,36 @@ public class AdminServiceImpl implements AdminService {
         String token = null;
         try {
             UserDetails userDetails = loadUserByUsername(username);
-            logger.info("password: {}",password);
-            logger.info("user Details password: {}",userDetails.getPassword());
             if (!passwordEncoder.matches(password, userDetails.getPassword())) {
                 throw new BadCredentialsException("密码不正确");
             }
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
+            insertLoginLog(username);
         } catch (AuthenticationException e) {
             logger.warn("登录异常：{}", e.getMessage());
         }
         return token;
     }
 
-    @TestAnnotation
-    @Override
-    public void testAspect() {
-        System.out.println("TestAspect");
+    /**
+     * 添加登录日志
+     *
+     * @param username
+     */
+    private void insertLoginLog(String username) {
+        CAdmin admin = getAdminByUsername(username);
+        if (admin == null)
+            return;
+        CAdminLoginLog loginLog = new CAdminLoginLog();
+        loginLog.setAdminId(admin.getId());
+        loginLog.setCreateTime(new Date());
+        // 获取ServletHttpRequest
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        loginLog.setIp(GetIpAddressUtils.getIpAddress(request));
+        loginLogMapper.insert(loginLog);
     }
 
     @Override
@@ -119,6 +150,11 @@ public class AdminServiceImpl implements AdminService {
             adminCacheService.setResourceList(adminId, resourceList);
         }
         return resourceList;
+    }
+
+    @Override
+    public String refreshToken(String token) {
+        return jwtTokenUtil.refreshHeadToken(token);
     }
 
 }

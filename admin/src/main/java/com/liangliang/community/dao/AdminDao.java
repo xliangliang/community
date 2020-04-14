@@ -1,8 +1,7 @@
 package com.liangliang.community.dao;
 
 import com.liangliang.community.dto.LoginParam;
-import com.liangliang.community.dto.RegisterParam;
-import com.liangliang.community.mapper.CAdminMapper;
+import com.liangliang.community.dto.AdminParam;
 import com.liangliang.community.model.CAdmin;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,7 +19,7 @@ public interface AdminDao {
     /**
      * 注册
      */
-    int insert(@Param("registerParam") RegisterParam registerParam);
+    int insert(@Param("registerParam") AdminParam registerParam);
 
     /**
      * 获取用户信息

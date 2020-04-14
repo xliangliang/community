@@ -4,7 +4,7 @@
     <resultMap id="AdminResultMap" type="com.liangliang.community.model.CAdmin" extends="com.liangliang.community.mapper.CAdminMapper.BaseResultMap">
     </resultMap>
 
-    <insert id="insert" parameterType="com.liangliang.community.dto.RegisterParam">
+    <insert id="insert" parameterType="com.liangliang.community.dto.AdminParam">
         insert into c_admin(username, password, create_time) values(#{registerParam.username}, #{registerParam.password}, #{registerParam.createTime});
     </insert>
 

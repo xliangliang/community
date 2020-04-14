@@ -1,6 +1,6 @@
 package com.liangliang.community.service;
 
-import com.liangliang.community.dto.RegisterParam;
+import com.liangliang.community.dto.AdminParam;
 import com.liangliang.community.model.CAdmin;
 import com.liangliang.community.model.CResource;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +11,7 @@ public interface AdminService {
     /**
      * 注册
      */
-    int register(RegisterParam registerParam);
+    CAdmin register(AdminParam adminParam);
 
     /**
      * 登录
@@ -19,11 +19,6 @@ public interface AdminService {
      * @return token
      */
     String login(String username, String password);
-
-    /**
-     * 测试自定义注解
-     */
-    void testAspect();
 
     /**
      * 获取用户信息
@@ -39,4 +34,9 @@ public interface AdminService {
      * 获取指定用户的可访问资源
      */
     List<CResource> getResourceList(Long adminId);
+
+    /**
+     * 刷新token
+     */
+    String refreshToken(String token);
 }

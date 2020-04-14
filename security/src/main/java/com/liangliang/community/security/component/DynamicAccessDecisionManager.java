@@ -16,7 +16,7 @@ import java.util.Iterator;
 /**
  * @author Liangliang
  * @date 2020/4/3
- * @desc
+ * @desc 动态权限决策管理器，用于判断用户是否有访问权限
  */
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
     private final Logger logger = LoggerFactory.getLogger(DynamicAccessDecisionManager.class);
