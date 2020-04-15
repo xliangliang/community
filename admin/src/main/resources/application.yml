@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: test #默认为开发环境
+    active: dev #默认为开发环境
   servlet:
     multipart:
       enabled: true #开启文件上传
@@ -11,7 +11,7 @@ spring:
       password: admin
 
 server:
-  port: 8001
+  port: 13974
 
 mybatis:
   mapper-locations:
@@ -39,8 +39,8 @@ secure:
       - /druid/**
       - /actuator/**
       - /api/admin/login
-      - api/admin/register
-      - /hello
+      - /api/admin/register
+      - /api/hello
 
 redis:
   key:
