@@ -21,15 +21,13 @@
                     contentType: "application/json",
                     cache: false,
                     beforeSend: function(XHR) {
-                        /*XHR.setRequestHeader("key","Authorization");
-                        XHR.setRequestHeader("value",tokenHead + " " + token);*/
                         XHR.setRequestHeader("Authorization",tokenHead + " " + token);
                     },
                     success: function (result) {
                         if (result.code == 200) {
                             setTokenCookie(result);
-                            //window.location.href = "http://192.168.154.201:8001/index.html";
-                            window.location.href = "http://192.168.101.201:8001/index.html";
+                            window.location.href = "http://192.168.154.201:8001/index.html";
+                            //window.location.href = "http://192.168.101.201:8001/index.html";
                         }
                     }
                 });
