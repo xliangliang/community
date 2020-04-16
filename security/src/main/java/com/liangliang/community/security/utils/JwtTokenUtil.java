@@ -56,7 +56,6 @@ public class JwtTokenUtil {
      * 根据负载生成token
      */
     private String generateToken(Map<String, Object> claims) {
-        logger.info("secrect:{}",secret);
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
