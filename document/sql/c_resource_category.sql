@@ -12,5 +12,5 @@ INSERT INTO `c_resource_category` VALUES ('1', '2020-02-05 10:21:44', '商品模
 INSERT INTO `c_resource_category` VALUES ('2', '2020-02-05 10:22:34', '订单模块', '0');
 INSERT INTO `c_resource_category` VALUES ('3', '2020-02-05 10:22:48', '营销模块', '0');
 INSERT INTO `c_resource_category` VALUES ('4', '2020-04-10 16:46:04', '权限模块', '0');
-INSERT INTO `c_resource_category` VALUES ('5', '2020-02-07 16:34:27', '内容模块', '0');
-INSERT INTO `c_resource_category` VALUES ('6', '2020-02-07 16:35:49', '其他模块', '0');
+INSERT INTO `c_resource_category` VALUES ('5', '2020-04-10 16:46:04', '内容模块', '0');
+INSERT INTO `c_resource_category` VALUES ('6', '2020-04-10 16:46:04', '其他模块', '0');

@@ -4,30 +4,27 @@
     <meta charset="UTF-8">
     <title>亮亮社区</title>
     <script src="static/js/jquery-1.12.4.min.js"></script>
-    <script src="static/js/jquery.cookie.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="static/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="static/css/bootstrap-theme.min.css"/>
 
     <script>
         $(function () {
-            var token = $.cookie("token");
+            var token = localStorage.getItem("token");
             if (token != null && token != "") {
-                console.log("token",token);
-                var tokenHead = $.cookie("tokenHead");
                 $.ajax({
                     type: "post",
                     url: "/api/admin/refreshToken",
                     contentType: "application/json",
                     cache: false,
                     beforeSend: function(XHR) {
-                        XHR.setRequestHeader("Authorization",tokenHead + " " + token);
+                        XHR.setRequestHeader("Authorization", token);
                     },
                     success: function (result) {
                         if (result.code == 200) {
                             setTokenCookie(result);
-                            window.location.href = "http://192.168.154.201:8001/index.html";
-                            //window.location.href = "http://192.168.101.201:8001/index.html";
+                            //window.location.href = "http://192.168.154.201:8001/index.html";
+                            window.location.href = "http://192.168.101.201:8001/index.html";
                         }
                     }
                 });
@@ -49,10 +46,6 @@
                     data: JSON.stringify(loginParam),
                     success: function (result) {
                         if (result.code == 200) {
-                            /*var tokenHead = result.data.tokenHead;
-                            var token = result.data.token;
-                            $.cookie("tokenHead", tokenHead, {expires: 7});
-                            $.cookie("token", token, {expires: 7});*/
                             setTokenCookie(result);
                             //window.location.href = "http://192.168.154.201:8001/index.html";
                             window.location.href = "http://192.168.101.201:8001/index.html";
@@ -65,16 +58,10 @@
                     }
                 });
             });
-
-            $("#formHand").submit(function () {
-            });
         });
 
         function setTokenCookie(result) {
-            var tokenHead = result.data.tokenHead;
-            var token = result.data.token;
-            $.cookie("tokenHead", tokenHead, {expires: 7});
-            $.cookie("token", token, {expires: 7});
+            localStorage.setItem("token", result.data.tokenHead + " " + result.data.token);
         }
     </script>
 </head>

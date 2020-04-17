@@ -10,15 +10,33 @@
     <link rel="stylesheet" href="static/css/bootstrap-theme.min.css"/>
     <script>
         $(document).ready(function () {
-            var token = $.cookie("token");
-            var login = $("#login");
-            var info = $("#info");
-            if (token == null || token == ""){
-                info.hide();
-            } else {
-                login.hide();
+            var token = localStorage.getItem("token");
+            if (token != null || token != "") {
+                $.ajax({
+                    type: "post",
+                    url: "/api/admin/refreshToken",
+                    contentType: "application/json",
+                    cache: false,
+                    beforeSend: function(XHR) {
+                        XHR.setRequestHeader("Authorization", token);
+                    },
+                    success: function (result) {
+                        console.log(result.code);
+                        if (result.code == 200) {
+                            localStorage.setItem("token", result.data.token);
+                            $("#login").addClass("hidden");
+                        } else {
+                            clearTokenCookie();
+                            $("#info").addClass("hidden");
+                        }
+                    }
+                });
             }
         });
+
+        function clearTokenCookie() {
+            localStorage.removeItem("token");
+        }
     </script>
 </head>
 <body>
@@ -64,7 +82,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                 <li id="login"><a href="login.html" >登陆</a></li>
-                <li id="info"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret">我</span></a></li>
+                <li id="info"> <a href="#" class="dropdown-toggle dropdown-menu dropdown-menu-right" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret">我</span></a></li>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -74,6 +92,36 @@
                     </ul>
                 </li>
             </ul>
+        </div>
+
+        <div class="col-md-9 right">
+            <div class="card">
+                <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item active"><a class="nav-link active" href="#activity" data-toggle="tab">最新</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">推荐</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">热门</a></li>
+                    </ul>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="activity">
+                            <span>1111111</span>
+                        </div>
+                        <!-- /activity -->
+                        <div class="tab-pane" id="timeline">
+                        </div>
+                        <!-- /timeline -->
+
+                        <div class="tab-pane" id="settings">
+
+                        </div>
+                        <!-- /settings -->
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 </nav>
