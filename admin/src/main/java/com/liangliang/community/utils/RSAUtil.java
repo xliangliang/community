@@ -1,15 +1,16 @@
 package com.liangliang.community.utils;
 
+import org.apache.commons.codec.Charsets;
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
+import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Liangliang
@@ -17,58 +18,58 @@ import java.security.spec.X509EncodedKeySpec;
  * @desc
  */
 public class RSAUtil {
+    private static Logger logger = LoggerFactory.getLogger(RSAUtil.class);
 
-    private static String publicKey;
-    private static String privateKey;
+    /**
+     * 加密
+     */
+    public static String encrypt(String context, String publicKey) {
+        String encryptContext = "";
+        try {
+            PublicKey pubKey = KeyFactory.getInstance("RSA").generatePublic(
+                    new X509EncodedKeySpec(Base64.decodeBase64(publicKey.getBytes(Charsets.UTF_8))));
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.ENCRYPT_MODE, pubKey);
+            encryptContext = Base64.encodeBase64String(cipher.doFinal(context.getBytes(Charsets.UTF_8)));
+        } catch (Exception e) {
+            logger.info("RSA加密失败");
+        }
+        return encryptContext;
+    }
 
-    public static void main(String[] args) {
+    /**
+     * 解密
+     */
+    public static String decrypt(String encryptContext, String privateKey) {
+        String message = "";
+        try {
+            PrivateKey priKey = KeyFactory.getInstance("RSA").generatePrivate(
+                    new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKey.getBytes(Charsets.UTF_8))));
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.DECRYPT_MODE, priKey);
+            message = new String(cipher.doFinal(Base64.decodeBase64(encryptContext.getBytes(Charsets.UTF_8))));
+        } catch (Exception e) {
+            logger.info("RSA解密失败");
+        }
+        return message;
+    }
+
+    /**
+     * 获取公钥、密钥  0：公钥  1：私钥
+     */
+    public static Map<Integer, String> getKeys() {
+        Map<Integer, String> keyMap = new HashMap<>();
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
             keyPairGenerator.initialize(1024);
             KeyPair keyPair = keyPairGenerator.generateKeyPair();
-            RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
-            RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
-            publicKey = new String(Base64.encodeBase64(rsaPublicKey.getEncoded()));
-            privateKey = new String(Base64.encodeBase64(rsaPrivateKey.getEncoded()));
-
-            System.out.println("publicKey:" + publicKey);
-            System.out.println("privateKey:" + privateKey);
-
-            String eMsg = encrypt("亮亮好呀", publicKey);
-            System.out.println("eMsg:" + eMsg);
-            String message = decrypt(eMsg, privateKey);
-            System.out.println("message:" + message);
-        } catch (Exception e) {
-            System.out.println("失败");
+            String publicKey = Base64.encodeBase64String(keyPair.getPublic().getEncoded());
+            String privateKey = Base64.encodeBase64String(keyPair.getPrivate().getEncoded());
+            keyMap.put(0, publicKey);
+            keyMap.put(1, privateKey);
+        } catch (NoSuchAlgorithmException e) {
+            logger.info("生成公钥、密钥失败");
         }
-    }
-
-    private static String encrypt(String message, String pKey) {
-        String encryptMsg = "";
-        try {
-            byte[] decodes = Base64.decodeBase64(pKey);
-            RSAPublicKey pubKey = (RSAPublicKey) KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(decodes));
-            Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.ENCRYPT_MODE, pubKey);
-            encryptMsg = Base64.encodeBase64String(cipher.doFinal(message.getBytes("UTF-8")));
-        } catch (Exception e) {
-            System.out.println("加密失败");
-        }
-        return encryptMsg;
-    }
-
-    public static String decrypt(String encryptMsg, String priKey) {
-        String message = "";
-        try {
-            byte[] msg = Base64.decodeBase64(encryptMsg.getBytes("UTF-8"));
-            byte[] decoded = Base64.decodeBase64(priKey);
-            RSAPrivateKey prKey = (RSAPrivateKey) KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(decoded));
-            Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.DECRYPT_MODE, prKey);
-            message = new String(cipher.doFinal(msg));
-        } catch (Exception e) {
-            System.out.println("解密失败");
-        }
-        return message;
+        return keyMap;
     }
 }
