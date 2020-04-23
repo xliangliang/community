@@ -11,7 +11,7 @@ CREATE TABLE `c_permission` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='后台用户权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='后台用户权限表';
 
 INSERT INTO `c_permission` VALUES ('1', '0', '首页', null, null, '0', null, '1', '2020-04-13 16:15:14', '0');
 INSERT INTO `c_permission` VALUES ('2', '1', '首页', 'new:index:read', null, '1', '/index/new', '1', '2020-04-13 16:15:14', '0');

@@ -5,7 +5,7 @@ CREATE TABLE `c_resource_category` (
   `name` varchar(200) DEFAULT NULL COMMENT '分类名称',
   `sort` int(4) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='资源分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='资源分类表';
 
 
 INSERT INTO `c_resource_category` VALUES ('1', '2020-02-05 10:21:44', '商品模块', '0');

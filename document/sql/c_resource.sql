@@ -7,6 +7,6 @@ CREATE TABLE `c_resource` (
   `description` varchar(500) DEFAULT NULL COMMENT '描述',
   `category_id` bigint(20) DEFAULT NULL COMMENT '资源分类ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='资源表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='资源表';
 
 INSERT INTO `c_resource` VALUES ('1', '2020-04-10 16:47:34', '用户管理', '/api/admin/**', '', '4');

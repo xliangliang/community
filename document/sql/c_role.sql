@@ -8,7 +8,7 @@ CREATE TABLE `c_role` (
   `status` int(1) DEFAULT '1' COMMENT '启用状态：0->禁用；1->启用',
   `sort` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='后台用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='后台用户角色表';
 
 
 INSERT INTO `c_role` VALUES ('1', '超级管理员', '拥有所有查看和操作功能', '0', '2020-04-13 15:11:05', '1', '0');

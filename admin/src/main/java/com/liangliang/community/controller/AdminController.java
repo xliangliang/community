@@ -4,6 +4,7 @@ import com.liangliang.community.api.CommonResult;
 import com.liangliang.community.dto.AdminParam;
 import com.liangliang.community.dto.LoginParam;
 import com.liangliang.community.model.CAdmin;
+import com.liangliang.community.security.utils.JwtTokenUtil;
 import com.liangliang.community.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +35,8 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @ApiOperation("登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -44,6 +47,7 @@ public class AdminController {
             return CommonResult.failed("用户名或密码错误");
         }
         Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("username", loginParam.getUsername());
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
@@ -70,7 +74,9 @@ public class AdminController {
         if (refreshToken == null) {
             return CommonResult.failed("token已过期");
         }
+        String username = jwtTokenUtil.getUserNameFromToken(refreshToken);
         Map<String, Object> tokenMap = new HashMap<>();
+        tokenMap.put("username", username);
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
