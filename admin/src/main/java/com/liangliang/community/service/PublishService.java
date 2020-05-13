@@ -11,5 +11,5 @@ public interface PublishService {
     /**
      * 发布问题
      */
-    Integer addQuestion(String token, PublishParam publishParam);
+    int addQuestion(Long adminI, PublishParam publishParam);
 }

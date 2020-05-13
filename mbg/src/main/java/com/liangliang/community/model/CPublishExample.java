@@ -435,6 +435,126 @@ public class CPublishExample {
             return (Criteria) this;
         }
 
+        public Criteria andViewCountIsNull() {
+            addCriterion("view_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountIsNotNull() {
+            addCriterion("view_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountEqualTo(Integer value) {
+            addCriterion("view_count =", value, "viewCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountNotEqualTo(Integer value) {
+            addCriterion("view_count <>", value, "viewCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountGreaterThan(Integer value) {
+            addCriterion("view_count >", value, "viewCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("view_count >=", value, "viewCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountLessThan(Integer value) {
+            addCriterion("view_count <", value, "viewCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountLessThanOrEqualTo(Integer value) {
+            addCriterion("view_count <=", value, "viewCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountIn(List<Integer> values) {
+            addCriterion("view_count in", values, "viewCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountNotIn(List<Integer> values) {
+            addCriterion("view_count not in", values, "viewCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountBetween(Integer value1, Integer value2) {
+            addCriterion("view_count between", value1, value2, "viewCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("view_count not between", value1, value2, "viewCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountIsNull() {
+            addCriterion("comment_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountIsNotNull() {
+            addCriterion("comment_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountEqualTo(Integer value) {
+            addCriterion("comment_count =", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountNotEqualTo(Integer value) {
+            addCriterion("comment_count <>", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountGreaterThan(Integer value) {
+            addCriterion("comment_count >", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("comment_count >=", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountLessThan(Integer value) {
+            addCriterion("comment_count <", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountLessThanOrEqualTo(Integer value) {
+            addCriterion("comment_count <=", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountIn(List<Integer> values) {
+            addCriterion("comment_count in", values, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountNotIn(List<Integer> values) {
+            addCriterion("comment_count not in", values, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountBetween(Integer value1, Integer value2) {
+            addCriterion("comment_count between", value1, value2, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("comment_count not between", value1, value2, "commentCount");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

@@ -5,6 +5,8 @@ import cn.hutool.core.collection.CollUtil;
 import com.liangliang.community.bo.AdminUserDetails;
 import com.liangliang.community.dao.AdminDao;
 import com.liangliang.community.dao.AdminRoleRelationDao;
+import com.liangliang.community.dao.FollowerFansRelationDao;
+import com.liangliang.community.dto.AdminDetailInfoDto;
 import com.liangliang.community.dto.AdminParam;
 import com.liangliang.community.mapper.CAdminLoginLogMapper;
 import com.liangliang.community.mapper.CAdminMapper;
@@ -45,13 +47,13 @@ public class AdminServiceImpl implements AdminService {
     private final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Autowired
-    private AdminDao adminDao;
-    @Autowired
     private CAdminMapper adminMapper;
     @Autowired
     private CAdminLoginLogMapper loginLogMapper;
     @Autowired
     private AdminRoleRelationDao adminRoleRelationDao;
+    @Autowired
+    private FollowerFansRelationDao followerFansRelationDao;
     @Autowired
     private AdminCacheService adminCacheService;
     @Autowired
@@ -123,6 +125,12 @@ public class AdminServiceImpl implements AdminService {
             return new AdminUserDetails(admin, resourceList);
         }
         throw new UsernameNotFoundException("用户名或密码错误");
+    }
+
+    @Override
+    public AdminDetailInfoDto getAdminDetailInfo(String username) {
+        CAdmin admin = getAdminByUsername(username);
+        return followerFansRelationDao.selectAdminDetailInfo(admin.getId());
     }
 
     @Override

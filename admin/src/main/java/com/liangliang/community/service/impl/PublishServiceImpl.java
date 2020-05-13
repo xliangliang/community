@@ -31,16 +31,13 @@ public class PublishServiceImpl implements PublishService {
     private JwtTokenUtil jwtTokenUtil;
 
     @Override
-    public Integer addQuestion(String token, PublishParam publishParam) {
-        String username = jwtTokenUtil.getUserNameFromToken(token.substring(tokenHead.length()));
-        CAdmin admin = adminCacheService.getAdmin(username);
-        if (admin == null) {
-            return 0;
-        }
+    public int addQuestion(Long adminId, PublishParam publishParam) {
         CPublish publish = new CPublish();
         BeanUtil.copyProperties(publishParam, publish);
-        publish.setAdminId(admin.getId());
+        publish.setAdminId(adminId);
         publish.setCreateTime(new Date());
+        publish.setViewCount(0);
+        publish.setCommentCount(0);
         return publishMapper.insert(publish);
     }
 }

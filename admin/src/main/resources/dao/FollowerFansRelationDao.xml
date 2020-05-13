@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangliang.community.dao.FollowerFansRelationDao">
+    <resultMap id="BaseResultMap" type="com.liangliang.community.dto.AdminDetailInfoDto">
+    </resultMap>
+
+    <select id="selectAdminDetailInfo" resultMap="com.liangliang.community.dao.FollowerFansRelationDao.BaseResultMap">
+        select a.id as adminId, a.icon, a.username, count(distinct p.id) as questionTotal, count(distinct ff.follow_id) as followTotal, count(distinct f.fans_id) as fansTotal
+        from c_admin a left join c_publish p on a.id = p.admin_id
+        left join c_follower_fans_relation f on a.id = f.follow_id
+        left join c_follower_fans_relation ff on a.id = ff.fans_id
+        where a.id = #{id};
+    </select>
+</mapper>

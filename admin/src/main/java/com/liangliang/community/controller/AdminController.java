@@ -1,6 +1,7 @@
 package com.liangliang.community.controller;
 
 import com.liangliang.community.api.CommonResult;
+import com.liangliang.community.dto.AdminDetailInfoDto;
 import com.liangliang.community.dto.AdminParam;
 import com.liangliang.community.dto.LoginParam;
 import com.liangliang.community.model.CAdmin;
@@ -14,12 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,6 +62,18 @@ public class AdminController {
             return CommonResult.failed();
         }
         return CommonResult.success(admin);
+    }
+
+    @ApiOperation(value = "个人信息")
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<AdminDetailInfoDto> getAdminInfo(Principal principal) {
+        if (principal == null) {
+            return CommonResult.unauthorized(null);
+        }
+        String username = principal.getName();
+        AdminDetailInfoDto adminDetailInfo = adminService.getAdminDetailInfo(username);
+        return CommonResult.success(adminDetailInfo);
     }
 
     @ApiOperation(value = "刷新token")

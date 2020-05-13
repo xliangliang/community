@@ -19,6 +19,12 @@ public class CPublish implements Serializable {
     @ApiModelProperty(value = "标签")
     private String label;
 
+    @ApiModelProperty(value = "预览人数")
+    private Integer viewCount;
+
+    @ApiModelProperty(value = "回复人数")
+    private Integer commentCount;
+
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
@@ -64,6 +70,22 @@ public class CPublish implements Serializable {
         this.label = label;
     }
 
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -83,6 +105,8 @@ public class CPublish implements Serializable {
         sb.append(", title=").append(title);
         sb.append(", supplement=").append(supplement);
         sb.append(", label=").append(label);
+        sb.append(", viewCount=").append(viewCount);
+        sb.append(", commentCount=").append(commentCount);
         sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

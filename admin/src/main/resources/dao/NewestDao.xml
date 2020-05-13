@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangliang.community.dao.NewestDao">
+    <resultMap id="BaseResultMap" type="com.liangliang.community.model.CPublish">
+    </resultMap>
+
+    <select id="selectAllNewest" resultType="com.liangliang.community.dto.NewestDto">
+        select a.username, a.icon, p.id as questionId, p.title, p.supplement, p.label, count(c.id) as commentCount, p.view_count as viewCount, p.create_time as createTime
+        from c_publish p left join c_admin a on a.id = p.admin_id
+        left join c_comment c on c.question_id = p.id
+        group by p.id order by p.create_time desc
+    </select>
+
+    <select id="selectAdminQuestion" resultType="com.liangliang.community.dto.NewestDto">
+        select a.username, a.icon, p.id as questionId, p.title, p.supplement, p.label, count(c.id) as commentCount, p.view_count as viewCount, p.create_time as createTime
+        from c_publish p left join c_admin a on a.id = p.admin_id
+        left join c_comment c on c.question_id = p.id
+        where p.admin_id = #{adminId} group by p.id order by p.create_time desc
+    </select>
+
+    <select id="selectQuestion" resultType="com.liangliang.community.dto.NewestDto">
+        select a.username, a.icon, p.id as questionId, p.title, p.supplement, p.label, count(c.id) as commentCount, p.view_count as viewCount, p.create_time as createTime
+        from c_publish p left join c_admin a on p.admin_id = a.id
+        left join c_comment c on c.question_id = p.id
+        where p.id = #{questionId};
+    </select>
+
+    <update id="updateViewCount" parameterType="Integer">
+        update c_publish set view_count = view_count + 1 where id = #{questionId};
+    </update>
+</mapper>

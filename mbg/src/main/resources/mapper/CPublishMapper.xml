@@ -7,6 +7,8 @@
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="supplement" jdbcType="VARCHAR" property="supplement" />
     <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, admin_id, title, supplement, label, create_time
+    id, admin_id, title, supplement, label, view_count, comment_count, create_time
   </sql>
   <select id="selectByExample" parameterType="com.liangliang.community.model.CPublishExample" resultMap="BaseResultMap">
     select
@@ -105,9 +107,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into c_publish (admin_id, title, supplement, 
-      label, create_time)
+      label, view_count, comment_count, 
+      create_time)
     values (#{adminId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{supplement,jdbcType=VARCHAR}, 
-      #{label,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+      #{label,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.liangliang.community.model.CPublish">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -127,6 +131,12 @@
       <if test="label != null">
         label,
       </if>
+      <if test="viewCount != null">
+        view_count,
+      </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
       <if test="createTime != null">
         create_time,
       </if>
@@ -143,6 +153,12 @@
       </if>
       <if test="label != null">
         #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null">
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -173,6 +189,12 @@
       <if test="record.label != null">
         label = #{record.label,jdbcType=VARCHAR},
       </if>
+      <if test="record.viewCount != null">
+        view_count = #{record.viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentCount != null">
+        comment_count = #{record.commentCount,jdbcType=INTEGER},
+      </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -188,6 +210,8 @@
       title = #{record.title,jdbcType=VARCHAR},
       supplement = #{record.supplement,jdbcType=VARCHAR},
       label = #{record.label,jdbcType=VARCHAR},
+      view_count = #{record.viewCount,jdbcType=INTEGER},
+      comment_count = #{record.commentCount,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -208,6 +232,12 @@
       <if test="label != null">
         label = #{label,jdbcType=VARCHAR},
       </if>
+      <if test="viewCount != null">
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -220,6 +250,8 @@
       title = #{title,jdbcType=VARCHAR},
       supplement = #{supplement,jdbcType=VARCHAR},
       label = #{label,jdbcType=VARCHAR},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      comment_count = #{commentCount,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

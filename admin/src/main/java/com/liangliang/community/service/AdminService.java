@@ -1,5 +1,6 @@
 package com.liangliang.community.service;
 
+import com.liangliang.community.dto.AdminDetailInfoDto;
 import com.liangliang.community.dto.AdminParam;
 import com.liangliang.community.model.CAdmin;
 import com.liangliang.community.model.CResource;
@@ -24,6 +25,11 @@ public interface AdminService {
      * 获取用户信息
      */
     UserDetails loadUserByUsername(String username);
+
+    /**
+     * 获取用户详细信息
+     */
+    AdminDetailInfoDto getAdminDetailInfo(String username);
 
     /**
      * 根据用户名获取后台管理员
