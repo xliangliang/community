@@ -64,8 +64,15 @@ public class AdminController {
         return CommonResult.success(admin);
     }
 
+    @ApiOperation("登出功能")
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult logout() {
+        return CommonResult.success(null);
+    }
+
     @ApiOperation(value = "个人信息")
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @RequestMapping(value = "/info", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<AdminDetailInfoDto> getAdminInfo(Principal principal) {
         if (principal == null) {
