@@ -49,6 +49,12 @@ redis:
   expire:
     common: 86400
 
+minio:
+  endPoint: http://192.168.154.201:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: community
+
 logging:
   level:
     root: info #日志配置DEBUG,INFO,WARN,ERROR

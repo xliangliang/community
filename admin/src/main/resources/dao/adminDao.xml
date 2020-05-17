@@ -8,23 +8,27 @@
         insert into c_admin(username, password, create_time) values(#{registerParam.username}, #{registerParam.password}, #{registerParam.createTime});
     </insert>
 
-    <select id="login" resultMap="com.liangliang.community.mapper.CAdminMapper.BaseResultMap" resultType="com.liangliang.community.model.CAdmin">
-        select id, username, icon, email, nick_name, note, create_time, login_time
+    <select id="login" resultType="com.liangliang.community.model.CAdmin">
+        select id, username, icon, email, nick_name as nickName, note, create_time as createTime, login_time as loginTime
         from c_admin where username = #{loginParam.username} and password = #{loginParam.password} and status = 1;
     </select>
 
-    <select id="select" resultMap="com.liangliang.community.mapper.CAdminMapper.BaseResultMap" resultType="com.liangliang.community.model.CAdmin">
-        select id, username, icon, email, nick_name, note, create_time, login_time
+    <select id="select" resultType="com.liangliang.community.model.CAdmin">
+        select id, username, icon, email, nick_name as nickName, note, create_time as createTime, login_time as loginTime
         from c_admin where username = #{username};
     </select>
 
-    <select id="selectById" resultMap="com.liangliang.community.mapper.CAdminMapper.BaseResultMap" resultType="com.liangliang.community.model.CAdmin">
-        select id, username, icon, email, nick_name, note, create_time, login_time
-        from c_admin where id = #{id};
+    <select id="selectById" resultType="com.liangliang.community.model.CAdmin">
+        select id, username, icon, email, nick_name as nickName, note, create_time as createTime, login_time as loginTime
+        from c_admin where id = #{adminId};
     </select>
 
     <update id="updateLoginTime">
-        update c_admin set login_time = #{date} where id = #{id};
+        update c_admin set login_time = #{date} where id = #{adminId};
+    </update>
+
+    <update id="updateIcon">
+        update c_admin set icon = #{iconUrl} where id = #{adminId};
     </update>
 
 </mapper>

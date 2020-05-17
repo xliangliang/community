@@ -45,4 +45,9 @@ public interface AdminService {
      * 刷新token
      */
     String refreshToken(String token);
+
+    /**
+     * 更新用户头像
+     */
+    int updateIcon(String username, String iconUrl);
 }

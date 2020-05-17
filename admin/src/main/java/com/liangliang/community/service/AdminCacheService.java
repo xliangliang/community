@@ -31,4 +31,9 @@ public interface AdminCacheService {
      * 设置缓存后台用户资源列表
      */
     void setResourceList(Long adminId, List<CResource> resourceList);
+
+    /**
+     * 删除缓存后台用户信息
+     */
+    void delAdmin(String username);
 }

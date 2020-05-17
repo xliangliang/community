@@ -31,12 +31,17 @@ public interface AdminDao {
     /**
      * 获取用户信息
      *
-     * @param id
+     * @param adminId
      */
-    CAdmin selectById(@Param("id") Long id);
+    CAdmin selectById(@Param("adminId") Long adminId);
 
     /**
      * 更新登录时间
      */
-    void updateLoginTime(Long id, Date date);
+    void updateLoginTime(@Param("adminId") Long adminId, @Param("date") Date date);
+
+    /**
+     * 更新头像
+     */
+    int updateIcon(@Param("adminId") Long adminId, @Param("iconUrl") String iconUrl);
 }

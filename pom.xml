@@ -39,13 +39,13 @@
         <mysql-connector.version>8.0.16</mysql-connector.version>
         <spring-data-commons.version>2.1.5.RELEASE</spring-data-commons.version>
         <poi.version>3.12</poi.version>
-        <okhttp.version>4.1.0</okhttp.version>
         <fastjson.version>1.2.58</fastjson.version>
         <logstash-logback.version>4.8</logstash-logback.version>
         <common.version>0.0.1-SNAPSHOT</common.version>
         <mbg.version>0.0.1-SNAPSHOT</mbg.version>
         <search.version>0.0.1-SNAPSHOT</search.version>
         <security.version>0.0.1-SNAPSHOT</security.version>
+        <minio.version>3.0.10</minio.version>
     </properties>
 
     <!-- SpringBoot -->
@@ -179,12 +179,6 @@
                 <groupId>org.apache.poi</groupId>
                 <version>${poi.version}</version>
             </dependency>
-            <!-- okhttp请求 -->
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
             <!-- fastjson字符串转换 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -196,6 +190,12 @@
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logstash-logback.version}</version>
+            </dependency>
+            <!--MinIO JAVA SDK-->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

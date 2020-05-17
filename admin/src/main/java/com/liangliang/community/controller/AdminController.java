@@ -83,6 +83,21 @@ public class AdminController {
         return CommonResult.success(adminDetailInfo);
     }
 
+    @ApiOperation(value = "更新头像")
+    @RequestMapping(value = "/updateIcon", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult updateIcon(@RequestParam("iconUrl") String iconUrl, Principal principal) {
+        if (principal == null) {
+            return CommonResult.unauthorized(null);
+        }
+        String username = principal.getName();
+        int count = adminService.updateIcon(username, iconUrl);
+        if (count != 1) {
+            return CommonResult.failed();
+        }
+        return CommonResult.success(null);
+    }
+
     @ApiOperation(value = "刷新token")
     @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
     @ResponseBody

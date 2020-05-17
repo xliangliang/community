@@ -48,4 +48,10 @@ public class AdminCacheServiceImpl implements AdminCacheService {
         String key = REDIS_KEY_ADMIN + ":" + adminId;
         redisService.set(key, resourceList, REDIS_EXPIRE);
     }
+
+    @Override
+    public void delAdmin(String username) {
+        String key = REDIS_KEY_ADMIN + ":" + username;
+        redisService.del(key);
+    }
 }

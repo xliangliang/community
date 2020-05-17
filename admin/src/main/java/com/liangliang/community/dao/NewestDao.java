@@ -28,5 +28,5 @@ public interface NewestDao {
     /**
      * 增加浏览数
      */
-    Integer updateViewCount(@Param("questionId") Integer questionId);
+    int updateViewCount(@Param("questionId") Integer questionId);
 }

@@ -47,6 +47,8 @@ public class AdminServiceImpl implements AdminService {
     private final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Autowired
+    private AdminDao adminDao;
+    @Autowired
     private CAdminMapper adminMapper;
     @Autowired
     private CAdminLoginLogMapper loginLogMapper;
@@ -163,6 +165,17 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public String refreshToken(String token) {
         return jwtTokenUtil.refreshHeadToken(token);
+    }
+
+    @Override
+    public int updateIcon(String username, String iconUrl) {
+        CAdmin admin = getAdminByUsername(username);
+        int count = adminDao.updateIcon(admin.getId(), iconUrl);
+        if (count != 1) {
+            return 0;
+        }
+        adminCacheService.delAdmin(username);
+        return 1;
     }
 
 }
