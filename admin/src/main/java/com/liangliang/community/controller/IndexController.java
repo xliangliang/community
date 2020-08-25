@@ -44,6 +44,7 @@ public class IndexController {
     @ResponseBody
     public CommonResult getCity(@PathVariable("id") Integer id){
         CCity city = cityService.fingOne(id);
+        System.out.println();
         return CommonResult.success(city);
     }
 }
