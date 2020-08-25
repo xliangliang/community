@@ -1,7 +1,9 @@
 package com.liangliang.community.controller;
 
+import com.liangliang.community.api.CommonPage;
 import com.liangliang.community.api.CommonResult;
 import com.liangliang.community.dto.AdminDetailInfoDto;
+import com.liangliang.community.dto.AdminPageParam;
 import com.liangliang.community.dto.AdminParam;
 import com.liangliang.community.dto.LoginParam;
 import com.liangliang.community.model.CAdmin;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Api(tags = "AdminController", description = "用户管理模块")
@@ -113,6 +116,24 @@ public class AdminController {
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
+    }
+
+    @ApiOperation(value = "获取用户分页")
+    @RequestMapping(value = "/adminPage", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult adminPage(AdminPageParam adminPageParam,
+                                  @RequestParam(value = "pageNum") Integer pageNum,
+                                  @RequestParam(value = "pageSize") Integer pageSize) {
+        List<CAdmin> list = adminService.list(adminPageParam, pageNum, pageSize);
+        return CommonResult.success(CommonPage.restPage(list));
+    }
+
+    @ApiOperation(value = "获取所有用户")
+    @GetMapping("/list")
+    @ResponseBody
+    public CommonResult listAdmin() {
+        List<CAdmin> list = adminService.list();
+        return new CommonResult(0, "操作成功", CommonPage.restPage(list));
     }
 
 }

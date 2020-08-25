@@ -2,11 +2,13 @@ package com.liangliang.community.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import com.github.pagehelper.PageHelper;
 import com.liangliang.community.bo.AdminUserDetails;
 import com.liangliang.community.dao.AdminDao;
 import com.liangliang.community.dao.AdminRoleRelationDao;
 import com.liangliang.community.dao.FollowerFansRelationDao;
 import com.liangliang.community.dto.AdminDetailInfoDto;
+import com.liangliang.community.dto.AdminPageParam;
 import com.liangliang.community.dto.AdminParam;
 import com.liangliang.community.mapper.CAdminLoginLogMapper;
 import com.liangliang.community.mapper.CAdminMapper;
@@ -29,6 +31,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -176,6 +179,29 @@ public class AdminServiceImpl implements AdminService {
         }
         adminCacheService.delAdmin(username);
         return 1;
+    }
+
+    @Override
+    public List<CAdmin> list(AdminPageParam adminPageParam, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        CAdminExample adminExample = new CAdminExample();
+        CAdminExample.Criteria criteria = adminExample.createCriteria();
+        criteria.andStatusEqualTo(1);
+        if (!StringUtils.isEmpty(adminPageParam.getUsername())) {
+            criteria.andUsernameEqualTo(adminPageParam.getUsername());
+        }
+        if (!StringUtils.isEmpty(adminPageParam.getEmail())){
+            criteria.andEmailEqualTo(adminPageParam.getEmail());
+        }
+        return adminMapper.selectByExample(adminExample);
+    }
+
+    @Override
+    public List<CAdmin> list() {
+        CAdminExample adminExample = new CAdminExample();
+        CAdminExample.Criteria criteria = adminExample.createCriteria();
+        criteria.andIdIsNotNull();
+        return adminMapper.selectByExample(adminExample);
     }
 
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangliang.community.dao.CityDao">
+    <resultMap id="BaseResultMap" type="com.liangliang.community.model.CCity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+
+    <resultMap id="TreeMap" type="com.liangliang.community.dto.CityDto">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <collection property="list" column="id" ofType="com.liangliang.community.dto.CityDto" select="nextTree">
+        </collection>
+    </resultMap>
+
+    <select id="nextTree" resultMap="TreeMap">
+        select id, parent_id as parentId, name from c_city where parent_id = #{id};
+    </select>
+
+    <select id="findCity" resultType="java.util.List" resultMap="TreeMap">
+        select id, parent_id as parentId, name from c_city where id = #{id};
+    </select>
+
+    <select id="findOne" resultType="com.liangliang.community.model.CCity" resultMap="BaseResultMap">
+         select id, parent_id as parentId, name from c_city where id = #{id};
+    </select>
+</mapper>

@@ -1,10 +1,12 @@
 package com.liangliang.community.service;
 
 import com.liangliang.community.dto.AdminDetailInfoDto;
+import com.liangliang.community.dto.AdminPageParam;
 import com.liangliang.community.dto.AdminParam;
 import com.liangliang.community.model.CAdmin;
 import com.liangliang.community.model.CResource;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ public interface AdminService {
     /**
      * 注册
      */
+    @Transactional
     CAdmin register(AdminParam adminParam);
 
     /**
@@ -50,4 +53,14 @@ public interface AdminService {
      * 更新用户头像
      */
     int updateIcon(String username, String iconUrl);
+
+    /**
+     * 分页获取用户
+     */
+    List<CAdmin> list(AdminPageParam adminPageParam, Integer pageNum, Integer pageSize);
+
+    /**
+     * 获取所用用户
+     */
+    List<CAdmin> list();
 }

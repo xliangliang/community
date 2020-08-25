@@ -40,6 +40,8 @@ secure:
       - /actuator/**
       - /api/admin/login
       - /api/admin/register
+      - /api/admin/list
+      - /api/admin/adminPage
       - /api/hello
       - /api/index/**
 
