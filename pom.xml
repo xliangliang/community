@@ -39,7 +39,7 @@
         <mysql-connector.version>8.0.16</mysql-connector.version>
         <spring-data-commons.version>2.1.5.RELEASE</spring-data-commons.version>
         <poi.version>3.12</poi.version>
-        <fastjson.version>1.2.58</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <logstash-logback.version>4.8</logstash-logback.version>
         <common.version>0.0.1-SNAPSHOT</common.version>
         <mbg.version>0.0.1-SNAPSHOT</mbg.version>
